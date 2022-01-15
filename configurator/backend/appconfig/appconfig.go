@@ -39,8 +39,12 @@ func Init(containerized bool) error {
 		serverName = "unnamed-server"
 	}
 	appConfig.ServerName = serverName
+	var ip = viper.GetString("server.ip")
+	if ip == "" {
+		ip == "0.0.0.0"
+	}
 	var port = viper.GetString("server.port")
-	appConfig.Authority = "0.0.0.0:" + port
+	appConfig.Authority = ip + port
 
 	globalLoggerConfig := &logging.Config{
 		FileName:    serverName + "-main",
